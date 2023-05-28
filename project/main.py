@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import Restaurant, MenuItem
+from flask_login import login_required, current_user
 from sqlalchemy import asc
 from . import db
 
@@ -20,6 +21,7 @@ def show_restaurants():
 
 
 @main.route('/restaurant/new/', methods=['GET', 'POST'])
+@login_required
 def new_restaurant():
     if request.method == 'POST':
         new_restaurant = Restaurant(name=request.form['name'])

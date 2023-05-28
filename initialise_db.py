@@ -3,6 +3,8 @@ from project.models import Restaurant, MenuItem
 
 
 def populate_db():
+    
+
     # Menu for UrbanBurger
     restaurant1 = Restaurant(name="Urban Burger")
 
