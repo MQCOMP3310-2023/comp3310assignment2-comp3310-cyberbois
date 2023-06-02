@@ -2,23 +2,7 @@ from project import db, create_app, models
 from project.models import Restaurant, MenuItem
 
 def populate_db():
-    app = create_app()
-    with app.app_context():
-        # Create tables if they don't exist
-        db.create_all()
-
-        # Add restaurants only if they don't exist
-        restaurant_names = ["Urban Burger", "Super Stir Fry", "Panda Garden", "Thyme for That Vegetarian Cuisine",
-                            "Tony's Bistro", "Andala's", "Auntie Ann's Diner", "Cocina Y Amor"]
-        
-        for name in restaurant_names:
-            restaurant = Restaurant.query.filter_by(name=name).first()
-            if not restaurant:
-                restaurant = Restaurant(name=name)
-                db.session.add(restaurant)
-        
-        # Commit changes to the database
-        db.session.commit()
+    
     #Menu for UrbanBurger
     restaurant1 = Restaurant(name = "Urban Burger")
 
