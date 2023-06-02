@@ -36,6 +36,7 @@ def new_restaurant():
 
 
 @main.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
+@login_required
 def edit_restaurant(restaurant_id):
     edited_restaurant = db.session.query(
         Restaurant).filter_by(id=restaurant_id).one()
@@ -50,6 +51,7 @@ def edit_restaurant(restaurant_id):
 
 # Delete a restaurant
 @main.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
+@login_required
 def delete_restaurant(restaurant_id):
     restaurant_to_delete = db.session.query(
         Restaurant).filter_by(id=restaurant_id).one()
@@ -66,6 +68,7 @@ def delete_restaurant(restaurant_id):
 
 @main.route('/restaurant/<int:restaurant_id>/')
 @main.route('/restaurant/<int:restaurant_id>/menu/')
+
 def show_menu(restaurant_id):
     restaurant = db.session.query(Restaurant).filter_by(id=restaurant_id).one()
     items = db.session.query(MenuItem).filter_by(
@@ -75,6 +78,7 @@ def show_menu(restaurant_id):
 
 # Create a new menu item
 @main.route('/restaurant/<int:restaurant_id>/menu/new/', methods=['GET', 'POST'])
+@login_required
 def new_menu_item(restaurant_id):
     restaurant = db.session.query(Restaurant).filter_by(id=restaurant_id).one()
     if request.method == 'POST':
@@ -91,6 +95,7 @@ def new_menu_item(restaurant_id):
 
 
 @main.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit', methods=['GET', 'POST'])
+@login_required
 def edit_menu_item(restaurant_id, menu_id):
 
     edited_item = db.session.query(MenuItem).filter_by(id=menu_id).one()
@@ -114,6 +119,7 @@ def edit_menu_item(restaurant_id, menu_id):
 
 # Delete a menu item
 @main.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete', methods=['GET', 'POST'])
+@login_required
 def delete_menu_item(restaurant_id, menu_id):
     restaurant = db.session.query(Restaurant).filter_by(id=restaurant_id).one()
     item_to_delete = db.session.query(MenuItem).filter_by(id=menu_id).one()
