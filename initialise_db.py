@@ -72,23 +72,23 @@ def populate_db():
     session.add(menu_item2)
     session.commit()
 
-    menu_item3 = MenuItem(name="Spicy Tuna Roll", description="",
-                          price="", course="", restaurant=restaurant2)
+    menu_item3 = MenuItem(name="Spicy Tuna Roll", description="Spicy roll of tuna and vegetables",
+                          price="$4.99", course="Entree", restaurant=restaurant2)
     session.add(menu_item3)
     session.commit()
 
-    menu_item4 = MenuItem(name="Nepali Momo ", description="",
-                          price="", course="", restaurant=restaurant2)
+    menu_item4 = MenuItem(name="Nepali Momo ", description="Traditional Nepali dumplings filled with meat or vegetables",
+                          price="10.99", course="Entree", restaurant=restaurant2)
     session.add(menu_item4)
     session.commit()
 
-    menu_item5 = MenuItem(name="Beef Noodle Soup", description="",
-                          price="", course="", restaurant=restaurant2)
+    menu_item5 = MenuItem(name="Beef Noodle Soup", description="A hearty soup with tender beef and noodles",
+                         price="$9.99", course="Entree", restaurant=restaurant2)
     session.add(menu_item5)
     session.commit()
 
-    menu_item6 = MenuItem(name="Ramen", description="",
-                          price="", course="", restaurant=restaurant2)
+    menu_item6 = MenuItem(name="Ramen", description="Japanese noodle soup dish with various toppings",
+                          price="$9.99", course="Entree", restaurant=restaurant2)
     session.add(menu_item6)
     session.commit()
 
@@ -102,16 +102,16 @@ def populate_db():
     session.add(menu_item1)
     session.commit()
 
-    menu_item2 = MenuItem(name="Chinese Dumplings", description="a common Chinese dumpling which generally consists of minced meat and finely chopped vegetables wrapped into a piece of dough skin. The skin can be either thin and elastic or thicker.", price="", course="", restaurant=restaurant3)
+    menu_item2 = MenuItem(name="Chinese Dumplings", description="a common Chinese dumpling which generally consists of minced meat and finely chopped vegetables wrapped into a piece of dough skin. The skin can be either thin and elastic or thicker.", price="$11.99", course="Appetizer", restaurant=restaurant3)
     session.add(menu_item2)
     session.commit()
 
-    menu_item3 = MenuItem(name="Gyoza", description="The most prominent differences between Japanese-style gyoza and Chinese-style jiaozi are the rich garlic flavor, which is less noticeable in the Chinese version, the light seasoning of Japanese gyoza with salt and soy sauce, and the fact that gyoza wrappers are much thinner", price="", course="", restaurant=restaurant3)
+    menu_item3 = MenuItem(name="Gyoza", description="The most prominent differences between Japanese-style gyoza and Chinese-style jiaozi are the rich garlic flavor, which is less noticeable in the Chinese version, the light seasoning of Japanese gyoza with salt and soy sauce, and the fact that gyoza wrappers are much thinner", price="$15.99", course="Appetizer", restaurant=restaurant3)
     session.add(menu_item3)
     session.commit()
 
     menu_item4 = MenuItem(name="Stinky Tofu", description="Taiwanese dish, deep fried fermented tofu served with pickled cabbage.",
-                          price="", course="", restaurant=restaurant3)
+                          price="$15.99", course="Entree", restaurant=restaurant3)
     session.add(menu_item4)
     session.commit()
 
@@ -121,27 +121,27 @@ def populate_db():
     session.commit()
 
     menu_item1 = MenuItem(name="Tres Leches Cake", description="Rich, luscious sponge cake soaked in sweet milk and topped with vanilla bean whipped cream and strawberries.",
-                          price="", course="", restaurant=restaurant4)
+                          price="$19.99", course="Dessert", restaurant=restaurant4)
     session.add(menu_item1)
     session.commit()
 
     menu_item2 = MenuItem(name="Mushroom risotto", description="Portabello mushrooms in a creamy risotto",
-                          price="", course="", restaurant=restaurant4)
+                          price="$23.99", course="Entree", restaurant=restaurant4)
     session.add(menu_item2)
     session.commit()
 
     menu_item3 = MenuItem(name="Honey Boba Shaved Snow",
-                          description="Milk snow layered with honey boba, jasmine tea jelly, grass jelly, caramel, cream, and freshly made mochi", price="", course="", restaurant=restaurant4)
+                          description="Milk snow layered with honey boba, jasmine tea jelly, grass jelly, caramel, cream, and freshly made mochi", price="$17.99", course="Dessert", restaurant=restaurant4)
     session.add(menu_item3)
     session.commit()
 
     menu_item4 = MenuItem(name="Cauliflower Manchurian",
-                          description="Golden fried cauliflower florets in a midly spiced soya,garlic sauce cooked with fresh cilantro, celery, chilies,ginger & green onions", price="", course="", restaurant=restaurant4)
+                          description="Golden fried cauliflower florets in a midly spiced soya,garlic sauce cooked with fresh cilantro, celery, chilies,ginger & green onions", price="$24.99", course="Entree", restaurant=restaurant4)
     session.add(menu_item4)
     session.commit()
 
     menu_item5 = MenuItem(name="Aloo Gobi Burrito", description="Vegan goodness. Burrito filled with rice, garbanzo beans, curry sauce, potatoes (aloo), fried cauliflower (gobi) and chutney. Nom Nom",
-                          price="", course="", restaurant=restaurant4)
+                          price="$10.99", course="Entree", restaurant=restaurant4)
     session.add(menu_item5)
     session.commit()
 
@@ -150,28 +150,28 @@ def populate_db():
     session.add(restaurant5)
     session.commit()
 
-    menu_item1 = MenuItem(name="Shellfish Tower", description="",
-                          price="", course="", restaurant=restaurant5)
+    menu_item1 = MenuItem(name="Shellfish Tower", description="A stack of Delicious Shellfish",
+                          price="$24.99", course="Entree", restaurant=restaurant5)
     session.add(menu_item1)
     session.commit()
 
-    menu_item2 = MenuItem(name="Chicken and Rice", description="",
-                          price="", course="", restaurant=restaurant5)
+    menu_item2 = MenuItem(name="Chicken and Rice", description="Grilled Chicken and served with hot basmati Rice",
+                          price="$10.99", course="Entree", restaurant=restaurant5)
     session.add(menu_item2)
     session.commit()
 
-    menu_item3 = MenuItem(name="Mom's Spaghetti", description="",
-                          price="", course="", restaurant=restaurant5)
+    menu_item3 = MenuItem(name="Mom's Spaghetti", description="Spaghetti with some incredible tomato sauce made by mom",
+                          price="$17.99", course="Entree", restaurant=restaurant5)
     session.add(menu_item3)
     session.commit()
 
     menu_item4 = MenuItem(name="Choc Full O\' Mint (Smitten\'s Fresh Mint Chip ice cream)",
-                          description="", price="", course="", restaurant=restaurant5)
+                          description="choclate and mint ice cream that feels refreshing on a hot day", price="$8.99", course="Dessert", restaurant=restaurant5)
     session.add(menu_item4)
     session.commit()
 
     menu_item5 = MenuItem(name="Tonkatsu Ramen", description="Noodles in a delicious pork-based broth with a soft-boiled egg",
-                          price="", course="", restaurant=restaurant5)
+                          price="$13.87", course="Entree", restaurant=restaurant5)
     session.add(menu_item5)
     session.commit()
 
@@ -181,22 +181,22 @@ def populate_db():
     session.commit()
 
     menu_item1 = MenuItem(name="Lamb Curry", description="Slow cook that thang in a pool of tomatoes, onions and alllll those tasty Indian spices. Mmmm.",
-                          price="", course="", restaurant=restaurant6)
+                          price="$19.87", course="Entree", restaurant=restaurant6)
     session.add(menu_item1)
     session.commit()
 
     menu_item2 = MenuItem(name="Chicken Marsala", description="Chicken cooked in Marsala wine sauce with mushrooms",
-                          price="", course="", restaurant=restaurant6)
+                          price="$22.65", course="Entree", restaurant=restaurant6)
     session.add(menu_item2)
     session.commit()
 
     menu_item3 = MenuItem(name="Potstickers", description="Delicious chicken and veggies encapsulated in fried dough.",
-                          price="", course="", restaurant=restaurant6)
+                          price="$14.99", course="Appetizer", restaurant=restaurant6)
     session.add(menu_item3)
     session.commit()
 
     menu_item4 = MenuItem(name="Nigiri SamplerMaguro, Sake, Hamachi, Unagi, Uni, TORO!",
-                          description="", price="", course="", restaurant=restaurant6)
+                          description="A delicious assortment of nigiri sushi including Maguro (tuna), Sake (salmon), Hamachi (yellowtail), Unagi (grilled eel), Uni (sea urchin), and TORO (fatty tuna)!", price="$34.99", course="Entree", restaurant=restaurant6)
     session.add(menu_item4)
     session.commit()
 
@@ -211,33 +211,33 @@ def populate_db():
     session.commit()
 
     menu_item1 = MenuItem(name="Boysenberry Sorbet", description="An unsettlingly huge amount of ripe berries turned into frozen (and seedless) awesomeness",
-                          price="", course="", restaurant=restaurant7)
+                          price="$16.76", course="Dessert", restaurant=restaurant7)
 
     session.add(menu_item1)
     session.commit()
 
     menu_item2 = MenuItem(name="Broiled salmon", description="Salmon fillet marinated with fresh herbs and broiled hot & fast",
-                          price="", course="", restaurant=restaurant7)
+                          price="$23.99", course="Entree", restaurant=restaurant7)
     session.add(menu_item2)
     session.commit()
 
     menu_item3 = MenuItem(name="Morels on toast (seasonal)",
-                          description="Wild morel mushrooms fried in butter, served on herbed toast slices", price="", course="", restaurant=restaurant7)
+                          description="Wild morel mushrooms fried in butter, served on herbed toast slices", price="$12.99", course="Appetizer", restaurant=restaurant7)
     session.add(menu_item3)
     session.commit()
 
     menu_item4 = MenuItem(name="Tandoori Chicken", description="Chicken marinated in yoghurt and seasoned with a spicy mix(chilli, tamarind among others) and slow cooked in a cylindrical clay or metal oven which gets its heat from burning charcoal.",
-                          price="", course="", restaurant=restaurant7)
+                          price="$18.99", course="Entree", restaurant=restaurant7)
     session.add(menu_item4)
     session.commit()
 
     menu_item5 = MenuItem(name="Veggie Burger", description="Juicy grilled veggie patty with tomato mayo and lettuce",
-                          price="", course="", restaurant=restaurant7)
+                          price="$16.99", course="Entree", restaurant=restaurant7)
     session.add(menu_item5)
     session.commit()
 
     menu_item6 = MenuItem(name="Spinach Ice Cream", description="vanilla ice cream made with organic spinach leaves",
-                          price="", course="", restaurant=restaurant7)
+                          price="$13.99", course="Dessert", restaurant=restaurant7)
     session.add(menu_item6)
     session.commit()
 
@@ -247,32 +247,32 @@ def populate_db():
     session.commit()
 
     menu_item1 = MenuItem(name="Super Burrito Al Pastor", description="Marinated Pork, Rice, Beans, Avocado, Cilantro, Salsa, Tortilla",
-                          price="", course="", restaurant=restaurant8)
+                          price="$13.89", course="Entree", restaurant=restaurant8)
     session.add(menu_item1)
     session.commit()
 
     menu_item2 = MenuItem(name="Cachapa", description="Golden brown, corn-based Venezuelan pancake; usually stuffed with queso telita or queso de mano, and possibly lechon. ",
-                          price="", course="", restaurant=restaurant8)
+                          price="$14.99", course="Appetizer", restaurant=restaurant8)
     session.add(menu_item2)
     session.commit()
 
     menu_item3 = MenuItem(name="Chantrelle Toast",
-                          description="Crispy Toast with Sesame Seeds slathered with buttery chantrelle mushrooms", price="", course="", restaurant=restaurant8)
+                          description="Crispy Toast with Sesame Seeds slathered with buttery chantrelle mushrooms", price="$12.99", course="Appetizer", restaurant=restaurant8)
     session.add(menu_item3)
     session.commit()
 
     menu_item4 = MenuItem(name="Guanciale Chawanmushi",
-                          description="Japanese egg custard served hot with spicey Italian Pork Jowl (guanciale)", price="", course="", restaurant=restaurant8)
+                          description="Japanese egg custard served hot with spicey Italian Pork Jowl (guanciale)", price="$18.99", course="Dessert", restaurant=restaurant8)
     session.add(menu_item4)
     session.commit()
 
     menu_item5 = MenuItem(name="Lemon Curd Ice Cream Sandwich",
-                          description="Lemon Curd Ice Cream Sandwich on a chocolate macaron with cardamom meringue and cashews", price="", course="", restaurant=restaurant8)
+                          description="Lemon Curd Ice Cream Sandwich on a chocolate macaron with cardamom meringue and cashews", price="$13.99", course="Dessert", restaurant=restaurant8)
     session.add(menu_item5)
     session.commit()
 
     menu_item6 = MenuItem(name="Szechuan Ribeye Steak",
-                          description="Served with wilted spinach and garlic", price="", course="", restaurant=restaurant8)
+                          description="Served with wilted spinach and garlic", price="$49.99", course="Entree", restaurant=restaurant8)
     session.add(menu_item6)
     session.commit()
 

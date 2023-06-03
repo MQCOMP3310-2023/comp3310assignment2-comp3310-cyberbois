@@ -6,6 +6,7 @@ from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
 auth = Blueprint('auth', __name__)
+show_all = 'main.show_restaurants'
 
 
 @auth.route('/login')
@@ -27,7 +28,7 @@ def login_post():
         return redirect(url_for('auth.login'))
 
     login_user(user, remember=remember)
-    return redirect(url_for('main.show_restaurants'))
+    return redirect(url_for(show_all))
 
 @auth.route('/signup')
 def signup():
@@ -65,14 +66,14 @@ def signup_post():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('main.show_restaurants'))
+    return redirect(url_for(show_all))
 
 @auth.route('/admin')
 @login_required
 def admin():
     if not current_user.is_admin:
         flash('You are not authorized to access the admin portal.')
-        return redirect(url_for('main.show_restaurants'))
+        return redirect(url_for(show_all))
     users = User.query.all()
     return render_template('adminUsers.html', users=users)
 
