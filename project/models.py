@@ -20,7 +20,7 @@ class MenuItem(db.Model):
     price = db.Column(db.String(8))
     course = db.Column(db.String(250))
     restaurant_id = db.Column(db.Integer,db.ForeignKey('restaurant.id'))
-    restaurant = db.relationship(Restaurant)
+    restaurant = db.    relationship(Restaurant)
 
     @property
     def serialize(self):
@@ -38,3 +38,4 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
+    is_admin = db.Column(db.Boolean, default=False)
