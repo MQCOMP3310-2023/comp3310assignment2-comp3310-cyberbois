@@ -15,17 +15,17 @@ warning_msg  = 'You do not have permission to access this page.'
 @main.route('/restaurant/')
 def show_restaurants():
     search_query = request.args.get('search_query', '') # Get search query from URL
-    sort_order = request.args.get('sort_order', 'A-Z') # Get sort order from URL
+    sort_order = request.args.get('sort_order', 'A-Z') # Get sort order from URL and user input selection
 
     if search_query: # If there is a search query, filter the restaurants by name
         restaurants = db.session.query(Restaurant).filter(Restaurant.name.ilike(f'%{search_query}%')) # ilike is case-insensitive
     else:
         restaurants = db.session.query(Restaurant) # Otherwise, just get all restaurants
 
-    if sort_order == 'A-Z': # Sort restaurants by name
-        restaurants = restaurants.order_by(asc(Restaurant.name)) # asc() is ascending order
-    elif sort_order == 'Z-A':
-        restaurants = restaurants.order_by(desc(Restaurant.name)) # desc() is descending order
+    if sort_order == 'A-Z': # If sorting order request chosen is A-Z
+        restaurants = restaurants.order_by(asc(Restaurant.name)) # Sort by ascending alphabetical order (asc()), starting from names A-Z
+    elif sort_order == 'Z-A': # If sorting order requese chosen is Z-A
+        restaurants = restaurants.order_by(desc(Restaurant.name)) # Sort by descending alphabetical order (desc()), starting from names Z-A
 
     return render_template('restaurants.html', restaurants=restaurants, search_query=search_query, sort_order=sort_order)
 
