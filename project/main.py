@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from project.models import User
 from .models import Restaurant, MenuItem
 from flask_login import login_required, current_user
-from sqlalchemy import asc
+from sqlalchemy import asc, desc
 from . import db
 
 main = Blueprint('main', __name__)
@@ -10,13 +10,15 @@ show_all = 'main.show_restaurants'
 show_menu_all = 'main.show_menu'
 
 # Show all restaurants
-
-
 @main.route('/')
 @main.route('/restaurant/')
 def show_restaurants():
-    restaurants = db.session.query(Restaurant).order_by(asc(Restaurant.name))
-    return render_template('restaurants.html', restaurants=restaurants)
+    sort_order = request.args.get('sort_order')
+    if sort_order == 'Z-A':
+        restaurants = db.session.query(Restaurant).order_by(desc(Restaurant.name))
+    else:
+        restaurants = db.session.query(Restaurant).order_by(asc(Restaurant.name))
+    return render_template('restaurants.html', restaurants=restaurants, sort_order=sort_order)
 
 # Create a new restaurant
 
