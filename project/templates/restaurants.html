@@ -1,6 +1,19 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
+{% if is_restaurant_owner %}
+<div class="row padding-top padding-bottom">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 padding-none">
+        <a href="{{ url_for('main.new_restaurant') }}">
+            <button class="btn btn-default" id="new-restaurant">
+                <span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>Add Restaurant
+            </button>
+        </a>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+{% endif %}
 <div class="row top-menu">
     <div class="col-md-10"></div>
     <div class="col-md-2 text-right">
@@ -27,6 +40,7 @@
         <h1>Restaurants</h1>
     </div>
 </div>
+
 
 <div class="flash">
     {% with messages = get_flashed_messages() %}

@@ -8,6 +8,7 @@ from . import db
 main = Blueprint('main', __name__)
 show_all = 'main.show_restaurants'
 show_menu_all = 'main.show_menu'
+warning_msg  = 'You do not have permission to access this page.'
 
 # Show all restaurants
 @main.route('/')
@@ -28,51 +29,57 @@ def show_restaurants():
 
     return render_template('restaurants.html', restaurants=restaurants, search_query=search_query, sort_order=sort_order)
 
-# Create a new restaurant
-
 
 @main.route('/restaurant/new/', methods=['GET', 'POST'])
 @login_required
 def new_restaurant():
+    if current_user.role not in ['owner', 'admin']:
+        flash(warning_msg, 'error')
+        return redirect(url_for(show_all))
+
     if request.method == 'POST':
-        new_restaurant = Restaurant(name=request.form['name'])
+        new_restaurant = Restaurant(name=request.form['name'], owner_id=current_user.id)
         db.session.add(new_restaurant)
-        flash('New Restaurant %s Successfully Created' % new_restaurant.name)
         db.session.commit()
+        flash('New Restaurant %s Successfully Created' % new_restaurant.name)
         return redirect(url_for(show_all))
     else:
         return render_template('newRestaurant.html')
 
-# Edit a restaurant
-
-
 @main.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
 @login_required
 def edit_restaurant(restaurant_id):
-    edited_restaurant = db.session.query(
-        Restaurant).filter_by(id=restaurant_id).one()
+    restaurant = Restaurant.query.get_or_404(restaurant_id)
+
+    if current_user.role not in ['owner', 'admin']:
+        flash(warning_msg, 'error')
+        return redirect(url_for(show_all))
+
     if request.method == 'POST':
-        if request.form['name']:
-            edited_restaurant.name = request.form['name']
-            flash('Restaurant Successfully Edited %s' % edited_restaurant.name)
-            return redirect(url_for(show_all))
+        restaurant.name = request.form['name']
+        db.session.commit()
+        flash('Restaurant Successfully Edited %s' % restaurant.name)
+        return redirect(url_for(show_all))
     else:
-        return render_template('editRestaurant.html', restaurant=edited_restaurant)
+        return render_template('editRestaurant.html', restaurant=restaurant)
 
 
-# Delete a restaurant
 @main.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
 @login_required
 def delete_restaurant(restaurant_id):
-    restaurant_to_delete = db.session.query(
-        Restaurant).filter_by(id=restaurant_id).one()
+    restaurant = Restaurant.query.get_or_404(restaurant_id)
+
+    if current_user.role not in ['owner', 'admin']:
+        flash(warning_msg, 'error')
+        return redirect(url_for(show_all))
+
     if request.method == 'POST':
-        db.session.delete(restaurant_to_delete)
-        flash('%s Successfully Deleted' % restaurant_to_delete.name)
+        db.session.delete(restaurant)
         db.session.commit()
-        return redirect(url_for(show_all, restaurant_id=restaurant_id))
+        flash('%s Successfully Deleted' % restaurant.name)
+        return redirect(url_for(show_all))
     else:
-        return render_template('deleteRestaurant.html', restaurant=restaurant_to_delete)
+        return render_template('deleteRestaurant.html', restaurant=restaurant)
 
 # Show a restaurant menu
 
@@ -91,53 +98,67 @@ def show_menu(restaurant_id):
 @main.route('/restaurant/<int:restaurant_id>/menu/new/', methods=['GET', 'POST'])
 @login_required
 def new_menu_item(restaurant_id):
-    restaurant = db.session.query(Restaurant).filter_by(id=restaurant_id).one()
+    restaurant = Restaurant.query.get_or_404(restaurant_id)
+
+    if current_user.role not in ['owner', 'admin']:
+        flash(warning_msg, 'error')
+        return redirect(url_for(show_menu_all, restaurant_id=restaurant_id))
+
     if request.method == 'POST':
-        new_item = MenuItem(name=request.form['name'], description=request.form['description'],
-                            price=request.form['price'], course=request.form['course'], restaurant_id=restaurant_id)
+        new_item = MenuItem(
+            name=request.form['name'],
+            description=request.form['description'],
+            price=request.form['price'],
+            course=request.form['course'],
+            restaurant_id=restaurant_id
+        )
         db.session.add(new_item)
         db.session.commit()
-        flash('New Menu %s Item Successfully Created' % (new_item.name))
+        flash('New Menu Item "%s" Successfully Created' % new_item.name)
         return redirect(url_for(show_menu_all, restaurant_id=restaurant_id))
     else:
-        return render_template('newmenuitem.html', restaurant_id=restaurant_id, restaurant=restaurant)
+        return render_template('newmenuitem.html', restaurant=restaurant)
+
 
 # Edit a menu item
-
-
 @main.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_menu_item(restaurant_id, menu_id):
+    restaurant = Restaurant.query.get_or_404(restaurant_id)
+    edited_item = MenuItem.query.get_or_404(menu_id)
 
-    edited_item = db.session.query(MenuItem).filter_by(id=menu_id).one()
-    restaurant = db.session.query(Restaurant).filter_by(id=restaurant_id).one()
+    if current_user.role not in ['owner', 'admin']:
+        flash(warning_msg, 'error')
+        return redirect(url_for(show_menu_all, restaurant_id=restaurant_id))
+
     if request.method == 'POST':
-        if request.form['name']:
-            edited_item.name = request.form['name']
-        if request.form['description']:
-            edited_item.description = request.form['description']
-        if request.form['price']:
-            edited_item.price = request.form['price']
-        if request.form['course']:
-            edited_item.course = request.form['course']
-        db.session.add(edited_item)
+        edited_item.name = request.form['name']
+        edited_item.description = request.form['description']
+        edited_item.price = request.form['price']
+        edited_item.course = request.form['course']
         db.session.commit()
         flash('Menu Item Successfully Edited')
         return redirect(url_for(show_menu_all, restaurant_id=restaurant_id))
     else:
-        return render_template('editmenuitem.html', restaurant_id=restaurant_id, menu_id=menu_id, item=edited_item, restaurant=restaurant)
+        return render_template('editmenuitem.html', restaurant=restaurant, item=edited_item)
 
 
 # Delete a menu item
 @main.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete', methods=['GET', 'POST'])
 @login_required
 def delete_menu_item(restaurant_id, menu_id):
-    restaurant = db.session.query(Restaurant).filter_by(id=restaurant_id).one()
-    item_to_delete = db.session.query(MenuItem).filter_by(id=menu_id).one()
+    restaurant = Restaurant.query.get_or_404(restaurant_id)
+    item_to_delete = MenuItem.query.get_or_404(menu_id)
+
+    if current_user.role not in ['owner', 'admin']:
+        flash(warning_msg, 'error')
+        return redirect(url_for(show_menu_all, restaurant_id=restaurant_id))
+
     if request.method == 'POST':
         db.session.delete(item_to_delete)
         db.session.commit()
         flash('Menu Item Successfully Deleted')
         return redirect(url_for(show_menu_all, restaurant_id=restaurant_id))
     else:
-        return render_template('deletemenuitem.html', item=item_to_delete, restaurant=restaurant)
+        return render_template('deletemenuitem.html', restaurant=restaurant, item=item_to_delete)
+

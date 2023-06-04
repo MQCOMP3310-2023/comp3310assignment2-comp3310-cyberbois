@@ -1,0 +1,44 @@
+{% extends "main.html" %}
+{% block content %}
+    {% include "header.html" %}
+    
+    <h2>Manage User Roles</h2>
+    
+    <table class="table">
+        <caption>manage roles</caption>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <form method="post" action="{{ url_for('auth.manage_roles') }}">
+                            <input type="hidden" name="email" value="{{ user.email }}">
+                            <select name="role">
+                                <option value="user" {% if user.role == 'user' %}selected{% endif %}>User</option>
+                                <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+                                <option value="owner" {% if user.role == 'owner' %}selected{% endif %}>owner</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </td>
+                    <td>
+                        {% if user.is_admin %}
+                            Admin
+                        {% elif user.role == 'owner' %}
+                            Owner
+                        {% else %}
+                            Regular User
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

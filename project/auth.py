@@ -96,6 +96,29 @@ def delete_user(user_id):
 
     return redirect(url_for('auth.admin'))
 
+@auth.route('/manage_roles/', methods=['GET', 'POST'])
+@login_required
+def manage_roles():
+    # Only allow admins to manage roles
+    if not current_user.is_admin:
+        flash('You do not have permission to access this page.')
+        return redirect(url_for('main.show_restaurants'))
+
+    if request.method == 'POST':
+        email = request.form['email']
+        role = request.form['role']
+        
+        user = User.query.filter_by(email=email).first()
+        if user:
+            user.role = role
+            db.session.commit()
+            flash('Role updated successfully.')
+        else:
+            flash('User not found.')
+    
+    users = User.query.all()
+    return render_template('manageRoles.html', users=users)
+
 
 
 # See https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login for more information
