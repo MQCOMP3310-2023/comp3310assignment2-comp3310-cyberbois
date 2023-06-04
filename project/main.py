@@ -13,7 +13,7 @@ warning_msg  = 'You do not have permission to access this page.'
 # Show all restaurants
 @main.route('/')
 @main.route('/restaurant/')
-def show_restaurants():
+def show_restaurants(): # Renamed function 'showRestaurants' to match regular expression
     search_query = request.args.get('search_query', '') # Get search query from URL
     sort_order = request.args.get('sort_order', 'A-Z') # Get sort order from URL and user input selection
 
@@ -32,7 +32,7 @@ def show_restaurants():
 
 @main.route('/restaurant/new/', methods=['GET', 'POST']) # Create a new restaurant
 @login_required # Only logged in owners and admins can access this route
-def new_restaurant():
+def new_restaurant(): # Renamed function 'newRestaurant' to match regular expression
     if current_user.role not in ['owner', 'admin']: # If the user is not an owner or admin, deny access
         flash(warning_msg, 'error') # Flash an error message
         return redirect(url_for(show_all))
@@ -48,7 +48,7 @@ def new_restaurant():
 
 @main.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST']) # Edit a restaurant
 @login_required
-def edit_restaurant(restaurant_id):
+def edit_restaurant(restaurant_id): # Renamed function 'editRestaurant' to match regular expression
     restaurant = Restaurant.query.get_or_404(restaurant_id) # Get the restaurant from the database
 
     if current_user.role not in ['owner', 'admin']:
@@ -66,7 +66,7 @@ def edit_restaurant(restaurant_id):
 
 @main.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST']) # Delete a restaurant
 @login_required
-def delete_restaurant(restaurant_id):
+def delete_restaurant(restaurant_id): # Renamed function 'deleteRestaurant' to match regular expression
     restaurant = Restaurant.query.get_or_404(restaurant_id)
 
     if current_user.role not in ['owner', 'admin']:
@@ -87,7 +87,7 @@ def delete_restaurant(restaurant_id):
 @main.route('/restaurant/<int:restaurant_id>/')
 @main.route('/restaurant/<int:restaurant_id>/menu/')
 
-def show_menu(restaurant_id):
+def show_menu(restaurant_id): # Renamed function 'showMenu' to match regular expression
     restaurant = db.session.query(Restaurant).filter_by(id=restaurant_id).one()
     items = db.session.query(MenuItem).filter_by(
         restaurant_id=restaurant_id).all()
@@ -97,7 +97,7 @@ def show_menu(restaurant_id):
 # Create a new menu item
 @main.route('/restaurant/<int:restaurant_id>/menu/new/', methods=['GET', 'POST'])
 @login_required
-def new_menu_item(restaurant_id):
+def new_menu_item(restaurant_id): # Renamed function 'newMenuItem' to match regular expression
     restaurant = Restaurant.query.get_or_404(restaurant_id)
 
     if current_user.role not in ['owner', 'admin']:
@@ -123,7 +123,7 @@ def new_menu_item(restaurant_id):
 # Edit a menu item
 @main.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit', methods=['GET', 'POST'])
 @login_required
-def edit_menu_item(restaurant_id, menu_id):
+def edit_menu_item(restaurant_id, menu_id): # Renamed function 'editMenuItem' to match regular expression
     restaurant = Restaurant.query.get_or_404(restaurant_id)
     edited_item = MenuItem.query.get_or_404(menu_id)
 
@@ -146,7 +146,7 @@ def edit_menu_item(restaurant_id, menu_id):
 # Delete a menu item
 @main.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete', methods=['GET', 'POST'])
 @login_required
-def delete_menu_item(restaurant_id, menu_id):
+def delete_menu_item(restaurant_id, menu_id): # Renamed function 'deleteMenuItem' to match regular expression
     restaurant = Restaurant.query.get_or_404(restaurant_id)
     item_to_delete = MenuItem.query.get_or_404(menu_id)
 
