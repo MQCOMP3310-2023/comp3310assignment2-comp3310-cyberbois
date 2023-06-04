@@ -13,12 +13,20 @@ show_menu_all = 'main.show_menu'
 @main.route('/')
 @main.route('/restaurant/')
 def show_restaurants():
-    sort_order = request.args.get('sort_order')
-    if sort_order == 'Z-A':
-        restaurants = db.session.query(Restaurant).order_by(desc(Restaurant.name))
+    search_query = request.args.get('search_query', '')
+    sort_order = request.args.get('sort_order', 'A-Z')
+
+    if search_query:
+        restaurants = db.session.query(Restaurant).filter(Restaurant.name.ilike(f'%{search_query}%'))
     else:
-        restaurants = db.session.query(Restaurant).order_by(asc(Restaurant.name))
-    return render_template('restaurants.html', restaurants=restaurants, sort_order=sort_order)
+        restaurants = db.session.query(Restaurant)
+
+    if sort_order == 'A-Z':
+        restaurants = restaurants.order_by(asc(Restaurant.name))
+    elif sort_order == 'Z-A':
+        restaurants = restaurants.order_by(desc(Restaurant.name))
+
+    return render_template('restaurants.html', restaurants=restaurants, search_query=search_query, sort_order=sort_order)
 
 # Create a new restaurant
 

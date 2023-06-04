@@ -4,6 +4,11 @@
 <div class="row top-menu">
     <div class="col-md-10"></div>
     <div class="col-md-2 text-right">
+        <form id="search-form" action="{{ url_for('main.show_restaurants') }}" method="GET">
+            <label for="search-query">Search Restaurant:</label>
+            <input type="text" id="search-query" name="search_query" value="{{ search_query }}">
+            <button type="submit">Search</button>
+        </form>
         <form id="sort-form" action="{{ url_for('main.show_restaurants') }}" method="GET">
             <label for="sort-order">Sort Order:</label>
             <select id="sort-order" name="sort_order" onchange="document.getElementById('sort-form').submit()">
@@ -46,15 +51,25 @@
     </div>
     <div class="col-md-1"></div>
 </div>
-{% for restaurant in restaurants %}
-<a href="{{ url_for('main.show_menu', restaurant_id=restaurant.id) }}">
+{% if restaurants %}
+    {% for restaurant in restaurants %}
+    <a href="{{ url_for('main.show_menu', restaurant_id=restaurant.id) }}">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10 restaurant-list">
+                <h3>{{ restaurant.name }}</h3>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </a>
+    {% endfor %}
+{% else %}
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-10 restaurant-list">
-            <h3>{{ restaurant.name }}</h3>
+        <div class="col-md-10">
+            <p>No restaurants found.</p>
         </div>
         <div class="col-md-1"></div>
     </div>
-</a>
-{% endfor %}
+{% endif %}
 {% endblock %}
