@@ -7,11 +7,10 @@
     <div class="col-md-6 text-right">
         {% if current_user.is_authenticated %}
         {% if current_user.is_admin %}
-            <a href="{{ url_for('auth.admin') }}" class="navbar-item">Delete users</a>
-            <span></span>
-            <a href="{{ url_for('auth.manage_roles') }}" class="navbar-item">Add restaurant owner</a>
+            <a href="{{ url_for('auth.admin') }}" class="navbar-item">Delete users</a>  <!-- this is the link to delete users -->
+            <a href="{{ url_for('auth.manage_roles') }}" class="navbar-item">Add restaurant owner</a>  <!-- this is the link to the manageRoles.html page -->
         {% endif %}
-        <a href="{{ url_for('auth.logout') }}" class="navbar-item">Logout</a>
+        <a href="{{ url_for('auth.logout') }}" class="navbar-item">Logout</a> 
     {% else %}
         <a href="{{ url_for('auth.login') }}" class="navbar-item">Login</a>
         <a href="{{ url_for('auth.signup') }}" class="navbar-item">Sign Up</a>

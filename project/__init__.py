@@ -27,13 +27,13 @@ def create_app():
 
     from .models import User
 
-    @login_manager.user_loader
+    @login_manager.user_loader # decorator to load the user object from the user ID stored in the session
     def load_user(user_id):
         # since the user_id is just the primary key of our user table, use it in the query for the user
         return User.query.get(int(user_id))
 
     # blueprint for auth routes in our app
-    from .auth import auth as auth_blueprint
+    from .auth import auth as auth_blueprint # import the blueprint instance
     app.register_blueprint(auth_blueprint)
 
     return app

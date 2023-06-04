@@ -11,7 +11,7 @@
     </div>
     <div class="row">
         <div class="col-md-6 col-md-offset-1 padding-top">
-            {% if current_user.role in ['owner', 'admin'] %}
+            {% if current_user.role in ['owner', 'admin'] %}  <!-- checks if a user is an admin or owner--> 
                 <form action="#" method="post">
                     <div class="form-group">
                         <label for="name">Name:</label>

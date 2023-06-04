@@ -21,9 +21,9 @@
                         <form method="post" action="{{ url_for('auth.manage_roles') }}">
                             <input type="hidden" name="email" value="{{ user.email }}">
                             <select name="role">
-                                <option value="user" {% if user.role == 'user' %}selected{% endif %}>User</option>
-                                <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
-                                <option value="owner" {% if user.role == 'owner' %}selected{% endif %}>owner</option>
+                                <option value="user" {% if user.role == 'user' %}selected{% endif %}>User</option> <!-- this is the default role -->
+                                <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option> <!-- this is the role that can delete users -->
+                                <option value="owner" {% if user.role == 'owner' %}selected{% endif %}>owner</option> <!-- this is the role that can add restaurants -->
                             </select>
                             <button type="submit" class="btn btn-primary">Update</button>
                         </form>

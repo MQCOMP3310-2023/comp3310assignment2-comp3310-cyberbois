@@ -14,31 +14,31 @@ warning_msg  = 'You do not have permission to access this page.'
 @main.route('/')
 @main.route('/restaurant/')
 def show_restaurants():
-    search_query = request.args.get('search_query', '')
-    sort_order = request.args.get('sort_order', 'A-Z')
+    search_query = request.args.get('search_query', '') # Get search query from URL
+    sort_order = request.args.get('sort_order', 'A-Z') # Get sort order from URL
 
-    if search_query:
-        restaurants = db.session.query(Restaurant).filter(Restaurant.name.ilike(f'%{search_query}%'))
+    if search_query: # If there is a search query, filter the restaurants by name
+        restaurants = db.session.query(Restaurant).filter(Restaurant.name.ilike(f'%{search_query}%')) # ilike is case-insensitive
     else:
-        restaurants = db.session.query(Restaurant)
+        restaurants = db.session.query(Restaurant) # Otherwise, just get all restaurants
 
-    if sort_order == 'A-Z':
-        restaurants = restaurants.order_by(asc(Restaurant.name))
+    if sort_order == 'A-Z': # Sort restaurants by name
+        restaurants = restaurants.order_by(asc(Restaurant.name)) # asc() is ascending order
     elif sort_order == 'Z-A':
-        restaurants = restaurants.order_by(desc(Restaurant.name))
+        restaurants = restaurants.order_by(desc(Restaurant.name)) # desc() is descending order
 
     return render_template('restaurants.html', restaurants=restaurants, search_query=search_query, sort_order=sort_order)
 
 
-@main.route('/restaurant/new/', methods=['GET', 'POST'])
-@login_required
+@main.route('/restaurant/new/', methods=['GET', 'POST']) # Create a new restaurant
+@login_required # Only logged in owners and admins can access this route
 def new_restaurant():
-    if current_user.role not in ['owner', 'admin']:
-        flash(warning_msg, 'error')
+    if current_user.role not in ['owner', 'admin']: # If the user is not an owner or admin, deny access
+        flash(warning_msg, 'error') # Flash an error message
         return redirect(url_for(show_all))
 
     if request.method == 'POST':
-        new_restaurant = Restaurant(name=request.form['name'], owner_id=current_user.id)
+        new_restaurant = Restaurant(name=request.form['name'], owner_id=current_user.id) 
         db.session.add(new_restaurant)
         db.session.commit()
         flash('New Restaurant %s Successfully Created' % new_restaurant.name)
@@ -46,10 +46,10 @@ def new_restaurant():
     else:
         return render_template('newRestaurant.html')
 
-@main.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
+@main.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST']) # Edit a restaurant
 @login_required
 def edit_restaurant(restaurant_id):
-    restaurant = Restaurant.query.get_or_404(restaurant_id)
+    restaurant = Restaurant.query.get_or_404(restaurant_id) # Get the restaurant from the database
 
     if current_user.role not in ['owner', 'admin']:
         flash(warning_msg, 'error')
@@ -64,7 +64,7 @@ def edit_restaurant(restaurant_id):
         return render_template('editRestaurant.html', restaurant=restaurant)
 
 
-@main.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
+@main.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST']) # Delete a restaurant
 @login_required
 def delete_restaurant(restaurant_id):
     restaurant = Restaurant.query.get_or_404(restaurant_id)

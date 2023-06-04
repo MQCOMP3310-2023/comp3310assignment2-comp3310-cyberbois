@@ -25,7 +25,7 @@
         <form id="sort-form" action="{{ url_for('main.show_restaurants') }}" method="GET">
             <label for="sort-order">Sort Order:</label>
             <select id="sort-order" name="sort_order" onchange="document.getElementById('sort-form').submit()">
-                <option value="A-Z" {% if sort_order == 'A-Z' %}selected{% endif %}>A-Z</option>
+                <option value="A-Z" {% if sort_order == 'A-Z' %}selected{% endif %}>A-Z</option> 
                 <option value="Z-A" {% if sort_order == 'Z-A' %}selected{% endif %}>Z-A</option>
             </select>
         </form>

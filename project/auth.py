@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 auth = Blueprint('auth', __name__)
 show_all = 'main.show_restaurants'
 
-
+# route for login
 @auth.route('/login')
 def login():
     return render_template('login.html')
@@ -30,6 +30,7 @@ def login_post():
     login_user(user, remember=remember)
     return redirect(url_for(show_all))
 
+# route for signup
 @auth.route('/signup')
 def signup():
     return render_template('signup.html')
@@ -41,7 +42,7 @@ def signup_post():
     name = request.form.get('name')
     password = request.form.get('password')
 
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
     if user:
         flash('Email address already exists')
         current_app.logger.debug("User email already exists")
@@ -50,12 +51,12 @@ def signup_post():
     is_admin = False  # Default value for is_admin flag
 
     # Change this to your admin email
-    if email == 'admin@example.com':  # Change to your desired admin email
+    if email == 'admin@example.com':  # can be changed later to any this is just for testing
         is_admin = True
 
     new_user = User(email=email, name=name,
                     password=generate_password_hash(password, method='sha256'),
-                    is_admin=is_admin)  # Use the updated is_admin value
+                    is_admin=is_admin)  # here the admin value is set
 
     db.session.add(new_user)
     db.session.commit()
@@ -118,7 +119,3 @@ def manage_roles():
     
     users = User.query.all()
     return render_template('manageRoles.html', users=users)
-
-
-
-# See https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login for more information

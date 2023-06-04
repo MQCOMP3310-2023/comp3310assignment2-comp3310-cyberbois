@@ -33,10 +33,10 @@ class MenuItem(db.Model):
            'course'     : self.course,
        }
 
-class User(UserMixin, db.Model):
+class User(UserMixin, db.Model): # User model for storing user-related details
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
-    is_admin = db.Column(db.Boolean, default=False)
-    role = db.Column(db.String(20), nullable=False, default='user')
+    is_admin = db.Column(db.Boolean, default=False) # Admin users can access the admin dashboard
+    role = db.Column(db.String(20), nullable=False, default='user') # User roles: user, owner, admin
